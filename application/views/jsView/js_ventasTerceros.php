@@ -93,7 +93,6 @@ $(document).ready(function() {
                         { 'title': 'CODIGO' },
                         { 'title': 'CLIENTE' },
                         { 'title': 'COMENTARIO' },
-                        { 'title': 'ESTADO' },
                         { 'title': 'OPCINOES' },
 
                     ],
@@ -103,19 +102,18 @@ $(document).ready(function() {
         { "width": "10%", "targets": 1 },
         { "width": "40%", "targets": 2 },
         { "width": "20%", "targets": 3 },
-        { "width": "10%", "targets": 4 },
-        { "width": "10%", "targets": 5 }
+        { "width": "10%", "targets": 4 }
       ],
       "createdRow":
       function( row, data, dataIndex){
-          if( data[4] == "ACTIVO"){
+         /* if( data[4] == "ACTIVO"){
               $(row).css('background-color', 'white');
 
 
           }
           else {
               $(row).css('background-color', '#d8d8d8');
-          }
+          }*/
 
 
       }
@@ -171,39 +169,17 @@ function filtrarxfechaPedidos(){
        if(e.results[0].CLIENTE == null){
        }else{
 
-        var estado;
-
         for (f=0;f<e.results.length;f++){
-          if (e.results[f].ESTADO==0){
-            estado =  "ACTIVO";
-          }else{
-            estado =  "ANULADO";
-
-          }
-
-         if (estado == "ANULADO"){
+          
             objTable.row.add
          ( [
               e.results[f].FECHA_CREADA,
               e.results[f].IDPEDIDO,
               e.results[f].NOMBRE,
               e.results[f].COMENTARIO,
-              estado,
               '<center><a href="#ModalVerDetVnts" id="btnVerDetVnts" class="noHover modal-trigger"><i class="material-icons">&#xE417;</i></a>&nbsp'
           ] ).draw( false )
 
-         }else{
-          objTable.row.add
-         ( [
-              e.results[f].FECHA_CREADA,
-              e.results[f].IDPEDIDO,
-              e.results[f].NOMBRE,
-              e.results[f].COMENTARIO,
-              estado,
-              '<center><a href="#ModalVerDetVnts" id="btnVerDetVnts" class="noHover modal-trigger"><i class="material-icons">&#xE417;</i></a>&nbsp'+
-              '&nbsp<a href="#!" id="btnAnularVnts" class="Icono noHover"><i class="material-icons">highlight_off</i></a></center>'
-          ] ).draw( false )
-         }
 
         }
 
@@ -306,7 +282,7 @@ function datosCreditoClte(codClte){//obtener datos de la tabla de SAC_DISP_CREDI
 //Llenar Data table registro por registro al persiona boton agregar
 $("#addProdDet").on('click', function(){
 
-var existencia = parseInt($("#txtExistencia").val().trim());
+var existencia = parseFloat($("#txtExistencia").val().trim().replace(/,/g, ""));
   var cliente = $("#ListCliente").val();
   var partesIdProd = $("#ListArticulo option:selected").text().split(' - ');
   var idProd = $("#ListArticulo").val();
@@ -351,7 +327,6 @@ var existencia = parseInt($("#txtExistencia").val().trim());
       Total = parseFloat(cantProd) * parseFloat(precioProd);
     }
 
-    $("#spanContTotArtPedido").text(parseInt(countArt)+parseInt(cantProd));
   
     var IVA = parseFloat(Total)*0.15;
     var granTotal = 0.00;
@@ -394,10 +369,6 @@ var partesClte = $("#ListCliente option:selected").text().split('-');
     if( ! Objtable1.data().any()){
       Materialize.toast("Agregue productos a la tabla antes de guardar");
     }else{
-
-      alert(countArt);
-
-
 
     var regDatGeneralVnt = {
         IDPEDIDO: "",
@@ -531,38 +502,18 @@ function LlenarDTPedidos(){
        if(e.results[0].IDPEDIDO == null){
        }else{
 
-        var estado = "ACTIVO";
+  
         for (f=0;f<e.results.length;f++){
-          if (e.results[f].ESTADO==0){
-            estado =  "ACTIVO";
-          }else{
-            estado =  "ANULADO";
-
-          }
-
-          if (estado == "ANULADO"){
+        
             objTable.row.add
          ( [
               e.results[f].FECHA_CREADA,
               e.results[f].IDPEDIDO,
               e.results[f].NOMBRE,
               e.results[f].COMENTARIO,
-              estado,
               '<center><a href="#ModalVerDetVnts" id="btnVerDetVnts" class="noHover modal-trigger"><i class="material-icons">&#xE417;</i></a>&nbsp'
           ] ).draw( false )
 
-         }else{
-          objTable.row.add
-         ( [
-              e.results[f].FECHA_CREADA,
-              e.results[f].IDPEDIDO,
-              e.results[f].NOMBRE,
-              e.results[f].COMENTARIO,
-              estado,
-              '<center><a href="#ModalVerDetVnts" id="btnVerDetVnts" class="noHover modal-trigger"><i class="material-icons">&#xE417;</i></a>&nbsp'+
-              '&nbsp<a href="#!" id="btnAnularVnts" class="Icono noHover"><i class="material-icons">highlight_off</i></a></center>'
-          ] ).draw( false )
-         }
         }
       }
     }

@@ -49,7 +49,6 @@
 					                <th></th>
 					            	<th></th>
 					                <th></th>
-					                <th></th>
                                 </tr>
                             </thead>     	
 					        <tfoot>
@@ -192,7 +191,6 @@
 		    		<div class="Seleccione el Producto">Cantidad</div>
 		    		<div class="input-group">
 		  				<input type="text" class="form-control" id="txtCantidad" placeholder="Cantidad"/>
-		  				<span style="display: none;" id="spanContTotArtPedido">0</span>
 		  			</div>
 		    	</div>
 
